@@ -1,0 +1,142 @@
+var canvas=new fabric.Canvas("myCanvas");
+blockwidtch=30;
+blockheight=30;
+playrX=10;
+playrY=10;
+var playrObject="";
+var blockObject="";
+function playrUpdate()
+{
+    fabric.Image.fromURL("player.png",function(Img)
+    {
+        playrObject=Img;
+        playrObject.scaleToWidth(150);
+        playrObject.scaleToHeight(140);
+        playrObject.set({
+            top:playrY,
+            left:playrX
+        });
+canvas.add(playrObject);
+    });
+}
+function newimage(getimage)
+{
+    fabric.Image.fromURL(getimage,function(Img)
+    {
+        blockObject=Img;
+        blockObject.scaleToWidth(blockwidtch);
+        blockObject.scaleToHeight(blockheight);
+        blockObject.set({
+            top:playrY,
+            left:playrX
+        });
+canvas.add(blockObject);
+    });
+}
+window.addEventListener("keydown",mykey);
+function mykey(e)
+{
+    keyPress=e.keyCode;
+    if(e.shiftKey==true && keyPress=='80')
+    {
+       blockwidtch=blockwidtch+10;
+       blockheight=blockheight+10;
+       document.getElementById("Currentwidth").innerHTML=blockwidtch;
+       document.getElementById("Currentheight").innerHTML=blockheight;
+    }
+    if(e.shiftKey==true && keyPress=='77')
+    {
+       blockwidtch=blockwidtch-10;
+       blockheight=blockheight-10;
+       document.getElementById("Currentwidth").innerHTML=blockwidtch;
+       document.getElementById("Currentheight").innerHTML=blockheight;
+    }
+    if(keyPress=='87')
+    {
+        newimage('wall.jpg');
+    }
+    if(keyPress=='82')
+    {
+        newimage('roof.jpg');
+    }
+    if(keyPress=='85')
+    {
+        newimage('unique.png');
+    }
+    if(keyPress=='84')
+    {
+        newimage('trunk.jpg');
+    }
+    if(keyPress=='89')
+    {
+        newimage('yellow_wall.png');
+    }
+    if(keyPress=='68')
+    {
+        newimage('dark_green.png');
+    }
+    if(keyPress=='76')
+    {
+        newimage('light_green.png');
+    }
+    if(keyPress=='71')
+    {
+        newimage('ground.png');
+    }
+    if(keyPress=='67')
+    {
+        newimage('cloud.jpg');
+    }
+    if(keyPress=='37')
+    {
+        left();
+    }
+    if(keyPress=='39')
+    {
+        right();
+    }
+    if(keyPress=='38')
+    {
+        up();
+    }
+    if(keyPress=='40')
+    {
+        down();
+    }
+}
+function up()
+{
+    if(playrY>=0)
+    {
+        playrY=playrY-blockheight;
+        canvas.remove(playrObject);
+        playrUpdate();
+    }
+}
+function down()
+{
+    if(playrY<=500)
+    {
+        playrY=playrY+blockheight;
+        canvas.remove(playrObject);
+        playrUpdate();
+    }
+}
+function left()
+{
+    if(playrX>=0)
+    {
+        playrX=playrX-blockwidtch;
+        canvas.remove(playrObject);
+        playrUpdate();
+    }
+}
+function right()
+{
+    if(playrX<=850)
+    {
+        playrX=playrX+blockwidtch;
+        canvas.remove(playrObject);
+        playrUpdate();
+    }
+}
